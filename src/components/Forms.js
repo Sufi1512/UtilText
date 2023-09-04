@@ -14,6 +14,30 @@ export default function Forms(props) {
     let newtext=text.toLowerCase()
     setText(newtext)
   }
+  const handleClear=()=>{
+    let newtext=""
+    setText(newtext)
+  }
+  const handleCopytext = () => {
+    if (text) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+
+      alert('Text copied to clipboard');
+    } else {
+      alert('Nothing to copy');
+    }
+  }
+  const handleRemoveExtraSpaces = () => {
+    if (text) {
+      const newText = text.replace(/\s+/g, ' ');
+      setText(newText);
+  }
+  }
 
   const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
   //const  time=(0.008*wordCount).toFixed(2);
@@ -32,10 +56,14 @@ export default function Forms(props) {
             rows="8"
           ></textarea>
         </div>
-        <button className="btn btn-primary my-3" onClick={handleUpClick}>
+        <button className="btn btn-primary my-3 mx-3" onClick={handleUpClick}>
           Convert to Upper Case
         </button>
         <button className="btn btn-primary my-3 mx-3 " on onClick={handleLowClick}>Convert to Lower Case</button>
+        <button className="btn btn-primary my-3 mx-3" on onClick={handleCopytext}>Copy text</button>
+        <button className="btn btn-primary my-3 mx-3" on onClick={handleClear}>Clear text</button>
+        <button className="btn btn-primary my-3 mx-3" on onClick={handleRemoveExtraSpaces}>Remove Extra Spaces</button>
+        
       </div>
       <div className="container">
         <h1>Your text summary</h1>
